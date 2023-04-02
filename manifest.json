@@ -1,0 +1,28 @@
+{
+	"manifest_version": 2,
+	"name": "Lotofacil",
+	"version": "1.0",
+
+	"description": "Lê os jogos gerados pelo site geradordaloto.com e automaticamente cria os jogos no site da caixa",
+
+	"icons": {
+		"48": "icons/icon-48.png"
+	},
+
+	"permissions": ["activeTab", "storage"],
+
+	"browser_action": {
+		"default_icon": "icons/icon-48.png",
+		"default_title": "Lotofacil",
+		"default_popup": "popup/lotofacil.html"
+	},
+
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.geradordaloto.com/*",
+				"*://*.loteriasonline.caixa.gov.br/*"
+			]
+		}
+	]
+}

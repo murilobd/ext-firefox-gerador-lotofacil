@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<style>
+		html,
+		body {
+			width: 100px;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		button {
+			border: none;
+			width: 100%;
+			margin: 3% auto;
+			padding: 4px;
+			text-align: center;
+			font-size: 1em;
+			cursor: pointer;
+			background-color: #E5F2F2;
+		}
+
+		button:hover {
+			background-color: #CFF2F2;
+		}
+
+		button[type="reset"] {
+			background-color: #FBFBC9;
+		}
+
+		button[type="reset"]:hover {
+			background-color: #EAEA9D;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="popup-content">
+		<button id="copyGames">Copiar jogos</button>
+		<button id="playGames">Preencher automaticamente</button>
+		<!-- <button id="">Turtle</button> -->
+	</div>
+	<div id="error-content" class="hidden">
+		<p>Ops! Falha ao copiar jogos</p>
+	</div>
+	<script src="lotofacil.js"></script>
+</body>
+
+</html>
