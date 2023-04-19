@@ -1,0 +1,11 @@
+{
+	"scripts": {
+		"start:firefox": "web-ext run --source-dir ./",
+		"lint:firefox": "web-ext lint --source-dir ./",
+		"sign:firefox": "web-ext sign --source-dir ./ --api-key=$APIKEY --api-secret=$APISECRET",
+		"build:firefox": "web-ext build"
+	},
+	"devDependencies": {
+		"web-ext": "^7.6.0"
+	}
+}

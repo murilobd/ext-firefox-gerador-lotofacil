@@ -32,7 +32,11 @@
     else if (message.command === "playGames") {
       browser.storage.local.get("games")
         .then(async ({ games }) => {
-          const allGames = JSON.parse(games);
+          const allGames = JSON.parse(games).filter(game => {
+            // filter out games that don't have 15 different numbers
+            const setGame = new Set(game);
+            return setGame.size === 15;
+          });
           for (let game = 0; game < allGames.length; game++) {
             await playGame(allGames[game], game + 1);
           }
@@ -51,34 +55,42 @@
     for (const numb of game) {
       const n = divNumbers.querySelector("#n" + numb);
       n.click();
-      await sleep(0.5);
+      await sleep(0.2);
     }
-    await sleep(1);
+    await sleep(0.5);
     // add game to cart
     const btnAddToCart = document.querySelector("button#colocarnocarrinho");
     btnAddToCart.click();
 
     // wait until new game is added to cart
     let gameAdded = false;
-    while (!gameAdded) {
-      console.log("adicionando no carrinho");
+    let attempts = 30;
+    while (!gameAdded && attempts > 0) {
       const cartGamesAdded = Number(document.querySelector("#carrinho").innerText);
-      console.log("cartGamesAdded", cartGamesAdded);
-      console.log("gameNbr", Number(gameNbr));
-      if (cartGamesAdded !== Number(gameNbr)) {
+      console.log("cartGamesAdded", cartGamesAdded, "gameNbr", Number(gameNbr));
+      if (Number(cartGamesAdded) !== Number(gameNbr)) {
         await sleep(1);
       } else {
         gameAdded = true;
       }
+      attempts--;
     }
 
+    if (!gameAdded || attempts <= 0) {
+      alert("Erro ao adicionar jogo: " + JSON.stringify(game));
+      window.location.reload();
+      return false;
+    }
+
+    alert("jogo adicionado: " + JSON.stringify(game));
     console.log("adicionado ----------------------");
     return true;
   }
 
   async function sleep(seconds = 1) {
-    return setTimeout(() => Promise.resolve(true), 1000 * seconds);
+    return new Promise(resolve => setTimeout(resolve, 1000 * seconds));
   }
+
 
 
 })();
